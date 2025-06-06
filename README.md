@@ -28,8 +28,9 @@ CreditApp es un sistema completo de gestión de ventas, inventario y créditos d
 
 1. Crea un proyecto en [Railway](https://railway.app) y añade un plugin de PostgreSQL.
 2. Copia la URL de la base de datos y configúrala como variable `DATABASE_URL`.
-   Railway suele generar una cadena como:
-   `postgresql://${PGUSER}:${POSTGRES_PASSWORD}@${RAILWAY_PRIVATE_DOMAIN}:5432/${PGDATABASE}`.
+   Railway expone variables como `PGUSER`, `PGPASSWORD`, `PGHOST`, `PGPORT` y `PGDATABASE`.
+   Una cadena típica sería:
+   `postgresql://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${PGDATABASE}`.
    También puedes usar `DATABASE_PUBLIC_URL` si tu plugin la expone con ese nombre.
 3. Agrega también una `SECRET_KEY` para Flask.
 4. Al desplegar, Railway instalará las dependencias indicadas en `requirements.txt` y ejecutará el comando del `Procfile`.
