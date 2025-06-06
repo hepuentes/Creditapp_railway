@@ -7,7 +7,17 @@ class Config:
     DEBUG = os.getenv('FLASK_DEBUG', 'False').lower() in ('true', '1', 't')
     
     # Configuración de la base de datos con mejor manejo de conexiones
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///creditapp.db')
+    db_url = os.getenv('DATABASE_URL') or os.getenv('DATABASE_PUBLIC_URL')
+    if not db_url:
+        pguser = os.getenv('PGUSER') or os.getenv('POSTGRES_USER')
+        pgpass = os.getenv('PGPASSWORD') or os.getenv('POSTGRES_PASSWORD')
+        host = os.getenv('PGHOST') or os.getenv('RAILWAY_PRIVATE_DOMAIN')
+        dbname = os.getenv('PGDATABASE') or os.getenv('POSTGRES_DB')
+        port = os.getenv('PGPORT', '5432')
+        if pguser and pgpass and host and dbname:
+            db_url = f"postgresql://{pguser}:{pgpass}@{host}:{port}/{dbname}"
+
+    SQLALCHEMY_DATABASE_URI = db_url or 'sqlite:///creditapp.db'
     if SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
         SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.replace("postgres://", "postgresql://", 1)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
