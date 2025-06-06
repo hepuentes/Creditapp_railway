@@ -8,6 +8,14 @@ class Config:
     
     # Configuración de la base de datos con mejor manejo de conexiones
     db_url = os.getenv('DATABASE_URL') or os.getenv('DATABASE_PUBLIC_URL')
+    if not db_url:
+        pguser = os.getenv('PGUSER')
+        pgpass = os.getenv('POSTGRES_PASSWORD')
+        domain = os.getenv('RAILWAY_PRIVATE_DOMAIN')
+        dbname = os.getenv('PGDATABASE')
+        if pguser and pgpass and domain and dbname:
+            db_url = f"postgresql://{pguser}:{pgpass}@{domain}:5432/{dbname}"
+
     SQLALCHEMY_DATABASE_URI = db_url or 'sqlite:///creditapp.db'
     if SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
         SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.replace("postgres://", "postgresql://", 1)
