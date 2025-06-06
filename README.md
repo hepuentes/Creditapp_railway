@@ -24,3 +24,11 @@ CreditApp es un sistema completo de gestión de ventas, inventario y créditos d
 ## Instalación
 
 1. **Clonar el repositorio**:
+## Despliegue en Railway
+
+1. Crea un proyecto en [Railway](https://railway.app) y añade un plugin de PostgreSQL.
+2. Copia la URL de la base de datos y configúrala como variable `DATABASE_URL` (o usa `DATABASE_PUBLIC_URL` si tu plugin la expone con ese nombre).
+3. Agrega también una `SECRET_KEY` para Flask.
+4. Al desplegar, Railway instalará las dependencias indicadas en `requirements.txt` y ejecutará el comando del `Procfile`.
+
+El archivo `railway.json` ya define el comando de inicio con Gunicorn para producción.
