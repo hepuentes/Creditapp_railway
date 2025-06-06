@@ -3,7 +3,7 @@ from datetime import timedelta
 
 class Config:
     # Configuración básica
-    SECRET_KEY = os.getenv('SECRET_KEY', 'dev_key_highly_secret')
+    SECRET_KEY = os.getenv('SECRET_KEY', 'A5p@k!4zT2wV8mR7cQ1fX9bL0hZ6uJ3s')
     DEBUG = os.getenv('FLASK_DEBUG', 'False').lower() in ('true', '1', 't')
     
     # Configuración de la base de datos con mejor manejo de conexiones
