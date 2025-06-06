@@ -7,4 +7,7 @@ keep_alive = 5
 threads = 2  # Usar threading para mejor manejo de conexiones
 max_requests = 200  # Reciclar workers después de cierto número de requests
 max_requests_jitter = 50  # Agregar jitter para evitar reciclar todos a la vez
-bind = "0.0.0.0:10000"  # Vinculación explícita
+import os
+
+# Vincular Gunicorn al puerto proporcionado por Railway
+bind = f"0.0.0.0:{os.getenv('PORT', '10000')}"
